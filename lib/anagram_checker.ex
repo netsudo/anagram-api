@@ -23,7 +23,6 @@ defmodule AnagramWeb.AnagramChecker do
         _ -> 
           {:error, "Wordlist not found"}
       end
-
     else
       {:error, "Must enter a non-empty string"}
     end
@@ -61,7 +60,7 @@ defmodule AnagramWeb.AnagramChecker do
     cond do
       current_word_length > longest_anagram_length  &&
       length(anagrams) > 1   ->
-        #
+        # Clear list for longer anagrams
         {current_word_length, [] ++ anagrams}
 
       current_word_length == longest_anagram_length &&
