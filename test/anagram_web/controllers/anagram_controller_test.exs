@@ -70,4 +70,13 @@ defmodule AnagramWeb.AnagramControllerTest do
     end
   end
 
+  describe "find anagram" do
+    test "checks if the find anagram endpoint is functional", %{conn: conn} do
+      conn = get(conn, Routes.anagram_path(conn, :find), word: "boon")
+      assert response(conn, 200)
+      conn = get(conn, Routes.anagram_path(conn, :find), word: "")
+      assert json_response(conn, 400)["errors"] != %{}
+    end
+  end
+
 end

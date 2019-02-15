@@ -45,13 +45,11 @@ defmodule AnagramWeb.AnagramChecker do
     end
   end
 
-  @doc """
-  Goes through the sorted map and checks if the list has at least 2 values.
-  If it does that means there's at least one anagram pair. We then check
-  if the current length is greater than our longest recorded value. If it's
-  larger then the list needs to be cleared so the larger anagrams can replace them.
-  If it's the same size they're appended.
-  """
+  # Goes through the sorted map and checks if the list has at least 2 values.
+  # If it does that means there's at least one anagram pair. We then check
+  # if the current length is greater than our longest recorded value. If it's
+  # larger then the list needs to be cleared so the larger anagrams can replace them.
+  # If it's the same size they're appended.
   defp get_longest(value_pair, acc) do
     {sorted_word, anagrams} = value_pair
     {longest_anagram_length, items} = acc
@@ -60,8 +58,8 @@ defmodule AnagramWeb.AnagramChecker do
     cond do
       current_word_length > longest_anagram_length  &&
       length(anagrams) > 1   ->
-        # Clear list for longer anagrams
-        {current_word_length, [] ++ anagrams}
+        # Clear list by setting it to the new longest anagrams
+        {current_word_length, anagrams}
 
       current_word_length == longest_anagram_length &&
       length(anagrams) > 1   ->
@@ -71,12 +69,10 @@ defmodule AnagramWeb.AnagramChecker do
     end
   end
 
-  @doc """
-  Check if the current sorted word is in the map. If it is then that means you've
-  found an anagram pair, so append it to the value list. Otherwise you add it
-  to potentially find another pair later on. Keeping track of longest_anagram_length
-  to skip shorter words.
-  """
+  # Check if the current sorted word is in the map. If it is then that means you've
+  # found an anagram pair, so append it to the value list. Otherwise you add it
+  # to potentially find another pair later on. Keeping track of longest_anagram_length
+  # to skip shorter words.
   defp sort_anagrams(word, acc) do
     {longest_anagram_length, items} = acc 
     current_word_length = String.length(word)
